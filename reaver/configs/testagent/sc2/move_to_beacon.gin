@@ -20,5 +20,4 @@ RandomActorCriticAgent.gae_lambda = 0.0
 RandomActorCriticAgent.value_coef = 0.5
 RandomActorCriticAgent.entropy_coef = 0.001
 
-RandomActorCriticAgent.bootstrap_terminals = False
 RandomActorCriticAgent.normalize_advantages = True
