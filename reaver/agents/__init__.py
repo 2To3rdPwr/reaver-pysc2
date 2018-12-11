@@ -6,3 +6,4 @@ from .testagent import RandomActorCriticAgent
 
 A2C = AdvantageActorCriticAgent
 PPO = ProximalPolicyOptimizationAgent
+testagent = RandomActorCriticAgent
