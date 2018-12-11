@@ -1,0 +1,24 @@
+import gin.tf.external_configurables
+
+tf.train.AdamOptimizer.learning_rate = 0.0005
+
+# ================================================== #
+# Parameters for A2C                                 #
+# ================================================== #
+RandomActorCriticAgent.model_fn = @build_fully_conv
+RandomActorCriticAgent.policy_cls = @SC2MultiPolicy
+
+RandomActorCriticAgent.batch_sz = 32
+RandomActorCriticAgent.traj_len = 16
+
+RandomActorCriticAgent.clip_grads_norm = 10.0
+RandomActorCriticAgent.optimizer = @tf.train.AdamOptimizer()
+
+RandomActorCriticAgent.discount = 0.99
+RandomActorCriticAgent.gae_lambda = 0.0
+
+RandomActorCriticAgent.value_coef = 0.5
+RandomActorCriticAgent.entropy_coef = 0.001
+
+RandomActorCriticAgent.bootstrap_terminals = False
+RandomActorCriticAgent.normalize_advantages = True
