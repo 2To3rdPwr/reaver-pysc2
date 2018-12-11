@@ -37,7 +37,8 @@ flags.DEFINE_multi_string('gin_bindings', [], 'Gin bindings to override config v
 
 agent_cls = {
     'a2c': rvr.agents.AdvantageActorCriticAgent,
-    'ppo': rvr.agents.ProximalPolicyOptimizationAgent
+    'ppo': rvr.agents.ProximalPolicyOptimizationAgent,
+    'testagent': rvr.agents.RandomActorCriticAgent
 }
 
 gin_configs = {
