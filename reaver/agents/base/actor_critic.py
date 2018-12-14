@@ -64,9 +64,40 @@ class ActorCriticAgent(MemoryAgent):
         self.start_step = self.sess_mgr.start_step * traj_len
 
     def get_action_and_value(self, obs):
+
+        try:
+            with open("get_action_and_value.txt", "x+") as f:
+                f.write("In\n")
+                f.write("obs: %s\n" % type(obs))
+                f.write("out\n")
+                f.write("tensorflow.SessionManager.run([self.policy.sample, self.value], self.model.inputs, obs)\n")
+                f.write("args\n")
+                f.write("self.policy.sample: %s\n" % type(self.policy.sample))
+                f.write("self.value: %s\n" % type(self.value))
+                f.write("self.model.inputs: %s\n" % type(self.model.inputs))
+                f.write("obs: %s\n" % type(obs))
+                f.close()
+        except FileExistsError:
+            print("")
+
         return self.sess_mgr.run([self.policy.sample, self.value], self.model.inputs, obs)
 
     def get_action(self, obs):
+
+        try:
+            with open("get_action.txt", "x+") as f:
+                f.write("In\n")
+                f.write("obs: %s\n" % type(obs))
+                f.write("out\n")
+                f.write("tensorflow.SessionManager.run(self.policy.sample, self.model.inputs, obs)\n")
+                f.write("args\n")
+                f.write("self.policy.sample: %s\n" % type(self.policy.sample))
+                f.write("self.model.inputs: %s\n" % type(self.model.inputs))
+                f.write("obs: %s\n" % type(obs))
+                f.close()
+        except FileExistsError:
+            print("")
+
         return self.sess_mgr.run(self.policy.sample, self.model.inputs, obs)
 
     def on_step(self, step, obs, action, reward, done, value=None):
@@ -84,6 +115,19 @@ class ActorCriticAgent(MemoryAgent):
         self.sess_mgr.on_update(self.n_batches)
         self.logger.on_update(self.n_batches, loss_terms, grads_norm, returns, adv, next_values)
 
+        try:
+            with open("on_step.txt", "x+") as f:
+                f.write("In\n")
+                f.write("step: %s\n" % type(step))
+                f.write("obs: %s\n" % type(obs))
+                f.write("action: %s\n" % type(action))
+                f.write("reward: %s\n" % type(reward))
+                f.write("done: %s\n" % type(done))
+                f.write("value: %s\n" % type(value))
+                f.close()
+        except FileExistsError:
+            print("")
+
     def minimize(self, advantages, returns):
         inputs = self.obs + self.acts + [advantages, returns]
         inputs = [a.reshape(-1, *a.shape[2:]) for a in inputs]
@@ -94,6 +138,19 @@ class ActorCriticAgent(MemoryAgent):
             ops.append(self.train_op)
 
         loss_terms, grads_norm, *_ = self.sess_mgr.run(ops, tf_inputs, inputs)
+
+        try:
+            with open("minimize.txt", "x+") as f:
+                f.write("In\n")
+                f.write("advantages: %s\n" % type(advantages))
+                f.write("returns: %s\n" % type(returns))
+                f.write("out\n")
+                f.write("loss_terms: %s\n" % type(loss_terms))
+                f.write("grads_norm: %s\n" % type(grads_norm))
+                f.close()
+        except FileExistsError:
+            print("")
+
         return loss_terms, grads_norm
 
     def compute_advantages_and_returns(self, bootstrap_value):
@@ -121,6 +178,17 @@ class ActorCriticAgent(MemoryAgent):
         if self.normalize_advantages:
             adv = (adv - adv.mean()) / (adv.std() + 1e-10)
 
+        try:
+            with open("compute_advantages_and_returns.txt", "x+") as f:
+                f.write("In\n")
+                f.write("bootstrap_value: %s\n" % type(bootstrap_value))
+                f.write("out\n")
+                f.write("adv: %s\n" % type(adv))
+                f.write("returns: %s\n" % type(returns))
+                f.close()
+        except FileExistsError:
+            print("")
+
         return adv, returns
 
     def on_start(self):
@@ -135,6 +203,18 @@ class ActorCriticAgent(MemoryAgent):
         y[-1] = x[-1]
         for t in range(x.shape[0]-2, -1, -1):
             y[t] = x[t] + discount[t] * y[t+1]
+
+        try:
+            with open("discounted_cumsum.txt", "x+") as f:
+                f.write("In\n")
+                f.write("x: %s\n" % type(x))
+                f.write("discount: %s\n" % type(discount))
+                f.write("out\n")
+                f.write("y: %s\n" % type(y))
+                f.close()
+        except FileExistsError:
+            print("")
+
         return y
 
     @abstractmethod

@@ -54,4 +54,17 @@ class AdvantageActorCriticAgent(SyncRunningAgent, ActorCriticAgent):
         # but since optimizer is minimizing the signs are opposite
         full_loss = policy_loss + value_loss - entropy_loss
 
+        try:
+            with open("loss_fn().txt", "x+") as f:
+                f.write("out\n")
+                f.write("full_loss: %s\n" % type(full_loss))
+                f.write("policy_loss: %s\n" % type(policy_loss))
+                f.write("value_loss: %s\n" % type(value_loss))
+                f.write("entropy_loss: %s\n" % type(entropy_loss))
+                f.write("adv: %s\n" % type(adv))
+                f.write("returns: %s\n\n" % type(returns))
+                f.close()
+        except FileExistsError:
+            print("")
+
         return full_loss, [policy_loss, value_loss, entropy_loss], [adv, returns]
