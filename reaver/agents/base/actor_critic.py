@@ -68,17 +68,14 @@ class ActorCriticAgent(MemoryAgent):
         try:
             with open("get_action_and_value.txt", "x+") as f:
                 f.write("In\n")
-                f.write("obs: %s\n" % type(obs))
-                f.write("obs[0]: %s\n" % type(obs[0]))
+                f.write("obs: {0} type: {1} type: {2}\n".format(type(obs), type(obs[0]), obs[0].dtype))
                 f.write("out\n")
                 f.write("tensorflow.SessionManager.run([self.policy.sample, self.value], self.model.inputs, obs)\n")
                 f.write("args\n")
-                f.write("self.policy.sample: %s\n" % type(self.policy.sample))
-                f.write("Sample[0]: %s\n" % type(self.policy.sample[0]))
-                f.write("value: {0} type: {1}\n".format(type(self.value), self.value.dtype))
-                f.write("self.model.inputs: %s\n" % type(self.model.inputs))
-                f.write("inputs[0]: %s\n" % type(self.model.inputs[0]))
-                f.write("obs: %s\n" % type(obs))
+                f.write("sample: {0} type: {1} type: {2}\n".format(type(self.policy.sample), type(self.policy.sample[0]), self.policy.sample[0].dtype))
+                f.write("self.value: %s\n" % type(self.value))
+                f.write("inputs: {0} type: {1} type: {2}\n".format(type(self.model.inputs), type(self.model.inputs[0]), self.model.inputs[0].dtype))
+                f.write("obs: {0} type: {1} type: {2}\n".format(type(obs), type(obs[0]), obs[0].dtype))
                 f.close()
         except FileExistsError:
             print("")
@@ -122,10 +119,8 @@ class ActorCriticAgent(MemoryAgent):
             with open("on_step.txt", "x+") as f:
                 f.write("In\n")
                 f.write("step: %s\n" % type(step))
-                f.write("obs: %s\n" % type(obs))
-                f.write("obs[0]: %s\n" % type(obs[0]))
-                f.write("action: %s\n" % type(action))
-                f.write("action[0]: %s\n" % type(action[0]))
+                f.write("obs: {0} type: {1} type: {2}\n".format(type(obs), type(obs[0]), obs[0].dtype))
+                f.write("action: {0} type: {1} type: {2}\n".format(type(action), type(action[0]), action[0].dtype))
                 f.write("reward: {0} type: {1}\n".format(type(reward), reward.dtype))
                 f.write("done: {0} type: {1}\n".format(type(done), done.dtype))
                 f.write("value: {0} type: {1}\n".format(type(value), value.dtype))
@@ -187,10 +182,10 @@ class ActorCriticAgent(MemoryAgent):
         try:
             with open("compute_advantages_and_returns.txt", "x+") as f:
                 f.write("In\n")
-                f.write("bootstrap_value: {0} type: {1}\n".format(type(bootstrap_value), bootstrap_value.dtype))
+                f.write("bootstrap_value: %s\n" % type(bootstrap_value))
                 f.write("out\n")
-                f.write("adv: {0} type: {1}\n".format(type(adv), adv.dtype))
-                f.write("returns: {0} type: {1}\n".format(type(returns), returns.dtype))
+                f.write("adv: %s\n" % type(adv))
+                f.write("returns: %s\n" % type(returns))
                 f.close()
         except FileExistsError:
             print("")
@@ -213,10 +208,10 @@ class ActorCriticAgent(MemoryAgent):
         try:
             with open("discounted_cumsum.txt", "x+") as f:
                 f.write("In\n")
-                f.write("x: {0} type: {1}\n".format(type(x), x.dtype))
-                f.write("discount: {0} type: {1}\n".format(type(discount), discount.dtype))
+                f.write("x: %s\n" % type(x))
+                f.write("discount: %s\n" % type(discount))
                 f.write("out\n")
-                f.write("y: {0} type: {1}\n".format(type(y), y.dtype))
+                f.write("y: %s\n" % type(y))
                 f.close()
         except FileExistsError:
             print("")
