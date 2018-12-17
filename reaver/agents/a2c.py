@@ -57,12 +57,12 @@ class AdvantageActorCriticAgent(SyncRunningAgent, ActorCriticAgent):
         try:
             with open("loss_fn().txt", "x+") as f:
                 f.write("out\n")
-                f.write("full_loss: %s\n" % type(full_loss))
-                f.write("policy_loss: %s\n" % type(policy_loss))
-                f.write("value_loss: %s\n" % type(value_loss))
-                f.write("entropy_loss: %s\n" % type(entropy_loss))
-                f.write("adv: %s\n" % type(adv))
-                f.write("returns: %s\n\n" % type(returns))
+                f.write("full_loss: {0} type: {1}\n".format(type(full_loss), full_loss.dtype))
+                f.write("policy_loss: {0} type: {1}\n".format(type(policy_loss), policy_loss.dtype))
+                f.write("value_loss: {0} type: {1}\n".format(type(value_loss), value_loss.dtype))
+                f.write("entropy_loss: {0} type: {1}\n".format(type(entropy_loss), entropy_loss.dtype))
+                f.write("adv: {0} type: {1}\n".format(type(adv), adv.dtype))
+                f.write("returns: {0} type: {1}\n".format(type(returns), returns.dtype))
                 f.close()
         except FileExistsError:
             print("")
