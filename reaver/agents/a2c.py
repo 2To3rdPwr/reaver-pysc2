@@ -55,7 +55,7 @@ class AdvantageActorCriticAgent(SyncRunningAgent, ActorCriticAgent):
         full_loss = policy_loss + value_loss - entropy_loss
 
         try:
-            with open("loss_fn().txt", "x+") as f:
+            with open("loss_fn.txt", "x+") as f:
                 f.write("out\n")
                 f.write("full_loss: {0} type: {1}\n".format(type(full_loss), full_loss.dtype))
                 f.write("policy_loss: {0} type: {1}\n".format(type(policy_loss), policy_loss.dtype))
